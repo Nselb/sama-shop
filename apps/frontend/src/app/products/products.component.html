@@ -1,0 +1,30 @@
+<div class="products-container">
+  <h1>Productos</h1>
+  
+  @if (products.length === 0) {
+    <div class="empty-state">
+      <p>No hay productos disponibles</p>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products; track product.id) {
+        <div class="product-card">
+          @if (product.images && product.images.length > 0) {
+            <img 
+              [src]="product.images[0]" 
+              [alt]="product.name"
+              class="product-image"
+            />
+          } @else {
+            <div class="product-image-placeholder">
+              <span>Sin imagen</span>
+            </div>
+          }
+          <div class="product-info">
+            <h3 class="product-name">{{ product.name }}</h3>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
