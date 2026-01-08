@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ApiResponse } from '@sama-shop/common';
-import { ProductDto } from '@sama-shop/shared';
+import { ApiResponse, ProductDto } from '@sama-shop/common';
 import { catchError, of, shareReplay } from 'rxjs';
 
 @Injectable({

@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { ProductDto } from '@sama-shop/common';
 import { ProductsService } from '../../core/products/products.service';
-import { ProductDto } from '@sama-shop/shared';
 
 @Component({
   selector: 'app-products',

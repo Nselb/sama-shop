@@ -5,6 +5,15 @@ dist
 tmp
 out-tsc
 
+# Environment files
+.env
+.env.*
+!.env.template
+!.env.example
+
+# Prisma generated files
+libs/prisma/src/generated/prisma/
+
 # dependencies
 node_modules
 

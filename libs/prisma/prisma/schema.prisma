@@ -1,0 +1,38 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Product {
+  id               String           @id @default(uuid())
+  name             String           @unique
+  slug             String           @unique
+  basePrice        Decimal
+  images           String[]
+  shortDescription String
+  longDescription  String
+  productVariants  ProductVariant[]
+}
+
+enum PriceModifierOperator {
+  ADD
+  SUBTRACT
+  PERCENTAGE_ADD
+  PERCENTAGE_SUBTRACT
+}
+
+model ProductVariant {
+  product               Product               @relation(fields: [productId], references: [id])
+  productId             String
+  name                  String
+  priceModifier         Decimal
+  priceModifierOperator PriceModifierOperator
+  images                String[]
+
+  @@id([productId, name])
+}

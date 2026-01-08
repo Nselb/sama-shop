@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@sama-shop/common": ["libs/common/src/index.ts"],
-      "@sama-shop/shared": ["libs/shared/src/index.ts"]
+      "@sama-shop/prisma": ["libs/prisma/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
