@@ -33,6 +33,7 @@ model ProductVariant {
   priceModifier         Decimal
   priceModifierOperator PriceModifierOperator
   images                String[]
+  colorCode             String?
 
   @@id([productId, name])
 }

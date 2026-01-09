@@ -1,11 +1,15 @@
 import { ProductDto } from '@sama-shop/common';
-import { Product } from '@sama-shop/prisma';
+import {
+  isProductWithVariants,
+  Product,
+  ProductWithVariants,
+} from '@sama-shop/prisma';
 
 function mapProductToDto(
-  product: Product,
+  product: Product | ProductWithVariants,
   showLongDescription = false,
 ): ProductDto {
-  return {
+  const baseDto: ProductDto = {
     id: product.id,
     images: product.images,
     name: product.name,
@@ -15,18 +19,32 @@ function mapProductToDto(
     basePrice: product.basePrice.toNumber(),
     slug: product.slug,
   };
+
+  if (isProductWithVariants(product)) {
+    baseDto.variants = product.productVariants.map((variant) => ({
+      name: variant.name,
+      priceModifier: variant.priceModifier.toNumber(),
+      priceModifierOperator: variant.priceModifierOperator,
+      images: variant.images,
+      colorCode: variant.colorCode ?? undefined,
+    }));
+  }
+
+  return baseDto;
 }
 
 export function toProductDto(
-  p: Product,
+  p: Product | ProductWithVariants,
   showLongDescription = false,
 ): ProductDto {
   return mapProductToDto(p, showLongDescription);
 }
 
 export function toProductDtoArray(
-  p: Product[],
+  p: Product[] | ProductWithVariants[],
   showLongDescription = false,
 ): ProductDto[] {
-  return p.map((product) => mapProductToDto(product, showLongDescription));
+  return p.map((product: Product | ProductWithVariants) =>
+    mapProductToDto(product, showLongDescription),
+  );
 }

@@ -1,0 +1,61 @@
+<div class="product-detail-container">
+  <a routerLink="/products" class="back-link">← Volver a productos</a>
+
+  @if (product(); as productData) {
+    <div class="product-detail">
+      <div class="product-images">
+        @if (currentImage()) {
+          <img
+            [src]="currentImage()"
+            [alt]="productData.name"
+            class="main-image"
+          />
+        } @else {
+          <div class="image-placeholder">
+            <span>Sin imagen</span>
+          </div>
+        }
+      </div>
+
+      <div class="product-info">
+        <h1 class="product-title">{{ productData.name }}</h1>
+        <p class="product-price">${{ currentPrice() | number: '1.2-2' }}</p>
+
+        @if (productData.description) {
+          <div class="product-description">
+            <h2>Descripción</h2>
+            <p>{{ productData.description }}</p>
+          </div>
+        }
+
+        @if (productData.variants && productData.variants.length > 0) {
+          <div class="product-variants">
+            <h2>Variantes</h2>
+            <div class="variants-list">
+              @for (variant of productData.variants; track variant.name) {
+                <button
+                  type="button"
+                  class="variant-card"
+                  [class.selected]="selectedVariant()?.name === variant.name"
+                  [class.has-color]="variant.colorCode"
+                  [style.border-color]="variant.colorCode || undefined"
+                  (click)="selectVariant(variant)"
+                >
+                  @if (variant.colorCode) {
+                    <span
+                      class="color-indicator"
+                      [style.background-color]="variant.colorCode"
+                    ></span>
+                  }
+                  <span class="variant-name">{{ variant.name }}</span>
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    <div class="loading">Cargando producto...</div>
+  }
+</div>

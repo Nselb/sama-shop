@@ -1,7 +1,5 @@
 import { ErrorCode } from '../errors/error-codes';
 
-export type ApiResponse<T> = ApiSuccess<T> | ApiFailure;
-
 export interface ApiSuccess<T> {
   success: true;
   data: T;

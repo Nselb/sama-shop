@@ -1,6 +1,6 @@
 <div class="products-container">
   <h1>Productos</h1>
-  
+
   @if (products.length === 0) {
     <div class="empty-state">
       <p>No hay productos disponibles</p>
@@ -8,10 +8,10 @@
   } @else {
     <div class="products-grid">
       @for (product of products; track product.id) {
-        <div class="product-card">
-          @if (product.images && product.images.length > 0) {
-            <img 
-              [src]="product.images[0]" 
+        <a [routerLink]="['/products', product.slug]" class="product-card">
+          @if (getCurrentImage(product)) {
+            <img
+              [src]="getCurrentImage(product)!"
               [alt]="product.name"
               class="product-image"
             />
@@ -23,7 +23,33 @@
           <div class="product-info">
             <h3 class="product-name">{{ product.name }}</h3>
           </div>
-        </div>
+          <div class="hover-overlay">
+            @if (product.description) {
+              <p class="product-description">{{ product.description }}</p>
+            }
+            @if (product.variants && product.variants.length > 0) {
+              <div class="variants-chips">
+                @for (variant of product.variants; track variant.name) {
+                  <span
+                    class="variant-chip"
+                    [class.has-color]="variant.colorCode"
+                    [style.border-color]="variant.colorCode || undefined"
+                    (mouseenter)="onVariantMouseEnter(product.id, variant)"
+                    (mouseleave)="onVariantMouseLeave(product.id)"
+                  >
+                    @if (variant.colorCode) {
+                      <span
+                        class="color-indicator"
+                        [style.background-color]="variant.colorCode"
+                      ></span>
+                    }
+                    <span class="variant-name">{{ variant.name }}</span>
+                  </span>
+                }
+              </div>
+            }
+          </div>
+        </a>
       }
     </div>
   }

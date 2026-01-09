@@ -11,4 +11,11 @@ export const appRoutes: Route[] = [
     loadComponent: () =>
       import('./products/products.component').then((m) => m.ProductsComponent),
   },
+  {
+    path: 'products/:slug',
+    loadComponent: () =>
+      import('./products/product-detail.component').then(
+        (m) => m.ProductDetailComponent,
+      ),
+  },
 ];
