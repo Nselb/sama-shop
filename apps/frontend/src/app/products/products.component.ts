@@ -15,7 +15,10 @@ export class ProductsComponent {
   protected productsService = inject(ProductsService);
 
   // Map to track which variant is being hovered for each product
-  private hoveredVariantMap = new Map<string, ProductVariantDto | null>();
+  private readonly hoveredVariantMap = new Map<
+    string,
+    ProductVariantDto | null
+  >();
 
   get products(): ProductDto[] {
     return this.productsService.products()?.data || [];
@@ -23,15 +26,15 @@ export class ProductsComponent {
 
   getCurrentImage(product: ProductDto): string | null {
     const hoveredVariant = this.hoveredVariantMap.get(product.id);
-    
+
     if (hoveredVariant?.images && hoveredVariant.images.length > 0) {
       return hoveredVariant.images[0];
     }
-    
+
     if (product.images && product.images.length > 0) {
       return product.images[0];
     }
-    
+
     return null;
   }
 
